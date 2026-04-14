@@ -1,32 +1,70 @@
-const marketData = [
-  { item: "成交金額", value: "745,263,248,249 元" },
-  { item: "成交股數", value: "5,655,057,217 股" },
-  { item: "成交筆數", value: "3,947,482 筆" },
+import { marketSummary } from "@/lib/mock-data";
+
+const marketStats = [
+  { label: "成交金額", value: marketSummary.amount },
+  { label: "成交股數", value: marketSummary.volume },
+  { label: "成交筆數", value: marketSummary.trades },
+  { label: "加權指數", value: marketSummary.indexValue }
 ];
 
 export default function MarketPage() {
   return (
-    <div className="mx-auto min-h-screen max-w-7xl px-6 py-12">
-      <h1 className="text-3xl font-bold text-slate-900">大盤資訊</h1>
-      <p className="mt-3 text-slate-600">
-        這裡先放展示資料，後續可改成由你的資料庫自動讀取 TWSE 匯入結果。
+    <div className="container-page min-h-screen py-12">
+      <h1 className="section-title">大盤資訊</h1>
+      <p className="section-desc">
+        目前以本地示範資料展示，之後可直接改成讀取你自己的資料庫或 API。
       </p>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
-        {marketData.map((row) => (
-          <div key={row.item} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-            <p className="text-sm text-slate-500">{row.item}</p>
-            <p className="mt-3 text-2xl font-bold text-slate-900">{row.value}</p>
+      <div className="mt-8 grid gap-6 md:grid-cols-4">
+        {marketStats.map((item) => (
+          <div key={item.label} className="metric-card">
+            <p className="text-sm text-slate-500">{item.label}</p>
+            <p className="mt-3 text-2xl font-bold text-slate-900">{item.value}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-10 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
-        <h2 className="text-xl font-bold">資料來源規劃</h2>
-        <ul className="mt-4 space-y-2 text-slate-600">
-          <li>• 官方來源：TWSE 每日收盤行情 / 大盤統計資訊</li>
-          <li>• 本地流程：下載 CSV → 匯入資料庫 → 網站讀取 API</li>
-          <li>• 部署方式：前端放 Vercel，資料處理仍放你自己的主機</li>
+      <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="card p-6">
+          <h2 className="text-xl font-bold">指數摘要</h2>
+          <div className="mt-5 space-y-3 text-slate-700">
+            <p>
+              <span className="font-semibold">指數名稱：</span>
+              {marketSummary.indexName}
+            </p>
+            <p>
+              <span className="font-semibold">指數值：</span>
+              {marketSummary.indexValue}
+            </p>
+            <p>
+              <span className="font-semibold">漲跌：</span>
+              {marketSummary.indexChange}
+            </p>
+            <p>
+              <span className="font-semibold">更新時間：</span>
+              {marketSummary.updateTime}
+            </p>
+          </div>
+        </div>
+
+        <div className="card p-6">
+          <h2 className="text-xl font-bold">資料流程規劃</h2>
+          <ul className="mt-5 space-y-3 text-slate-600">
+            <li>• 官方來源：TWSE 歷史資料與日成交資料</li>
+            <li>• 本地流程：下載 → 解析 → 入庫 → API</li>
+            <li>• 前端網站：Vercel 顯示整理後結果</li>
+            <li>• 後續可加入每日自動更新與圖表</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="mt-10 card p-6">
+        <h2 className="text-xl font-bold">第二版重點</h2>
+        <ul className="mt-5 grid gap-3 text-slate-600 md:grid-cols-2">
+          <li>• 首頁與大盤頁使用共用資料來源</li>
+          <li>• 頁面樣式統一</li>
+          <li>• 後續換成真實 API 時結構不需大改</li>
+          <li>• 已可直接部署到 GitHub + Vercel</li>
         </ul>
       </div>
     </div>
