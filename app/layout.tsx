@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="zh-Hant">
       <body>
@@ -21,9 +21,9 @@ export default function RootLayout({
               TW Stock Dashboard
             </Link>
             <nav className="flex gap-6 text-sm font-medium text-slate-600">
-              <Link href="/">≠∫≠∂</Link>
-              <Link href="/market">§jΩL</Link>
-              <Link href="/stocks">≠”™—</Link>
+              <Link href="/">È¶ñÈ†Å</Link>
+              <Link href="/market">Â§ßÁõ§</Link>
+              <Link href="/stocks">ÂÄãËÇ°</Link>
             </nav>
           </div>
         </header>
@@ -32,7 +32,7 @@ export default function RootLayout({
 
         <footer className="mt-16 border-t bg-white">
           <div className="mx-auto max-w-7xl px-6 py-6 text-sm text-slate-500">
-            c 2026 TW Stock Dashboard
+            ¬© 2026 TW Stock Dashboard
           </div>
         </footer>
       </body>
